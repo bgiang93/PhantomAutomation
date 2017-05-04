@@ -1,0 +1,219 @@
+{
+    "appid"       : "776ab991-313e-48e7-bccd-e8c9650c239a",
+    "name"      : "Cybereason",
+    "description" : "Query Cybereason",
+    "publisher": "Phantom",
+    "package_name": "phantom_cybereason",
+    "type": "information",
+    "license": "Copyright (c) Phantom Cyber Corporation 2015",
+    "main_module" : "cybereason_connector.pyc",
+    "app_version": "1.0",
+    "utctime_updated": "2016-06-28T02:20:48.000000Z",
+    "product_vendor": "Generic",
+    "product_name": "Cybereason",
+    "product_version_regex": ".*",
+    "min_phantom_version": "1.2.236",
+    "logo": "cybereason.png",
+    "configuration": {
+      "server_address": {
+        "description": "Server Address",
+        "data_type": "string",
+        "required": false,
+        "value_list": ["sce-ui.cybereason.net"]
+          },
+      "port": {
+            "description": "Port",
+            "data_type": "string",
+            "required": false,
+             "value_list": ["443"]
+          },
+      "protocol": {
+            "description": "Protocol",
+            "data_type": "string",
+            "required": false,
+      "value_list": ["https"]
+          },
+          "username": {
+            "description": "Username",
+            "data_type": "string",
+            "required": true,
+      "order": 3
+          },
+          "password": {
+            "description": "Password",
+            "data_type": "password",
+            "required": true,
+      "order": 3
+          },
+          "proxy": {
+            "description": "Proxy",
+      "data_type": "string",
+            "value_list": ["http://192.213.136.168"],
+            "required": false
+          }
+    },
+    "actions": [
+      {
+        "action": "test connectivity",
+        "description": "Validate the asset configuration for connectivity.",
+        "type": "test",
+        "identifier": "test_asset_connectivity",
+        "read_only": true,
+        "parameters": {
+        },
+        "output": [],
+        "versions":"EQ(*)"
+      },
+      {
+        "action" : "get indicators",
+        "description": "get all indicators from cybereason",
+        "type": "generic",
+        "identifier": "get_indicators",
+        "read_only": true,
+        "parameters": {
+        },
+        "render": {
+          "type": "table",
+          "width": 12,
+          "height": 5,
+          "title": "get indicators table"
+        },
+        "output": [
+          {
+            "data_path": "action_result.data.*.id",
+            "data_type": "string"
+          },
+          {
+            "data_path": "action_result.data.*.key",
+            "data_type": "string",
+            "column_name": "Key",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.reputation",
+            "data_type": "string",
+            "column_name": "Reputation",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.prevent execution",
+            "data_type": "string",
+            "column_name": "Prevent Execution",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.data.*.comment",
+            "data_type": "string",
+            "column_name": "Comment",
+            "column_order": 4
+          }
+        ],
+        "versions":"EQ(*)"
+      },
+      {
+        "action" : "add indicators",
+        "description": "add new indicators",
+        "type": "generic",
+        "identifier": "add_indicators",
+        "read_only": true,
+        "parameters": {
+          "key": {
+            "description": "Key",
+            "data_type": "string",
+            "order": 0,
+            "required": true
+          },
+          "reputation": {
+            "description": "Reputation",
+            "data_type": "string",
+            "order": 1,
+            "required": true,
+            "default": "blacklist"
+          },
+          "prevention": {
+            "description": "Prevention",
+            "data_type": "string",
+            "order": 2,
+            "required": true,
+            "default": "false"
+          },
+          "comment": {
+            "description": "Comment",
+            "data_type": "string",
+            "order": 3,
+            "required": false
+          }
+        },
+        "render": {
+          "type": "table",
+          "width": 12,
+          "height": 5,
+          "title": "add indicators table"
+        },
+        "output": [          
+          {
+            "data_path": "action_result.data.*.key",
+            "data_type": "string",
+            "column_name": "Key",
+            "column_order": 1
+          },
+          {
+            "data_path": "action_result.data.*.reputation",
+            "data_type": "string",
+            "column_name": "Reputation",
+            "column_order": 2
+          },
+          {
+            "data_path": "action_result.data.*.prevention",
+            "data_type": "string",
+            "column_name": "Prevent Execution",
+            "column_order": 3
+          },
+          {
+            "data_path": "action_result.data.*.comment",
+            "data_type": "string",
+            "column_name": "Comment",
+            "column_order": 4
+          }
+        ],
+        "versions":"EQ(*)"
+      },
+      {
+        "action" : "remove indicators",
+        "description": "remove indicators",
+        "type": "generic",
+        "identifier": "remove_indicators",
+        "read_only": true,
+        "parameters": {
+          "key": {
+            "description": "Key",
+            "data_type": "string",
+            "order": 0,
+            "required": true
+          },
+          "reputation": {
+            "description": "Reputation",
+            "data_type": "string",
+            "order": 1,
+            "required": true,
+            "default": "blacklist"
+          },
+          "prevention": {
+            "description": "Prevention",
+            "data_type": "string",
+            "order": 2,
+            "required": true,
+            "default": "false"
+          },
+          "comment": {
+            "description": "Comment",
+            "data_type": "string",
+            "order": 3,
+            "required": false
+          }
+        },
+        "output": [],
+        "versions":"EQ(*)"
+      }
+    ]
+}
